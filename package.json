@@ -1,0 +1,38 @@
+{
+  "name": "apirest",
+  "version": "2.0.0",
+  "description": "iPERFEX API REST",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iperfex-team/apirest.git"
+  },
+  "keywords": [
+    "iperfex",
+    "idialerx",
+    "isurveyx",
+    "tts"
+  ],
+  "author": "Federico Pereira <fpereira@iperfex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iperfex-team/apirest/issues"
+  },
+  "homepage": "https://github.com/iperfex-team/apirest#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-mysql-session": "^2.0.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.2.0",
+    "mysql": "^2.16.0",
+    "node-fetch": "^2.1.2",
+    "simple-node-logger": "^0.93.37",
+    "ssh-exec": "^2.0.0"
+  }
+}
