@@ -45,12 +45,13 @@ This code is distributed under the MIT license.
 | SSH_USER  | SSH User |
 | SSH_PASS  | SSH Pass |
 
+# Build Docker
 
 ```bash
 docker build -t iperfex/apirest:2.0 -f Dockerfile .
 ```
 
-# Run Docker Container
+# Run Docker
 ```bash
 docker run --name apirest_app -itd --env-file ./ENV -p 0.0.0.0:8080:8080/tcp  iperfex/apirest:2.0
 ```
