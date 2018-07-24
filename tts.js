@@ -105,7 +105,7 @@ function download(id, file) {
     if(LOG === 'true') log.info(`TTS [Function download] Credentials: `, credentials)
 
     var url = TTS_HOST + "/cache/" + file
-    var path = '/var/lib/asterisk/sounds/campaigns/'+ id +'/tmp/'
+    var path = '/var/lib/asterisk/sounds/surveys/'+ id + '/s_tmp/'
     var cmd = 'mkdir -p ' + path + ' && wget --no-check-certificate '+ url +' -O '+ path + file +' && chown asterisk:asterisk ' + path + file
     if(LOG === 'true') log.info(`TTS [Function download] CMD: ${cmd}`)
     ssh(cmd, credentials).pipe(process.stdout)
