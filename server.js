@@ -46,9 +46,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-  	secure: false,
-  	maxAge: 60000,
-  	httpOnly: false,
+        secure: false,
+        maxAge: 60000,
+        httpOnly: false,
   },
   store:new MySQLStore({
     host: MYSQL_HOST,
@@ -124,14 +124,14 @@ router.get('/hello', function(req, res) {
         var msg = { code: 204, success: 'Required login.' }
         if(LOG === 'true') log.info(`[anonymous] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
         if(LOG === 'true') log.info(`[anonymous] [${showip(req)}] [${req.sessionID}] Status: ${msg.code} Response: ${msg.success}`)
-	    res.json(msg)
-	}else{
+            res.json(msg)
+        }else{
         res.status(200)
         var msg = { message: 'hello world :)' }
         if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
         if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${res.statusCode} Response: ${msg.message}`)
-	    res.json(msg)
-	}
+            res.json(msg)
+        }
 })
 
 //path
