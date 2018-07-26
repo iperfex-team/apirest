@@ -43,7 +43,7 @@ handleDisconnect()
 
 function showip(req){
     var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress).split(",")[0]
-	return ip
+        return ip
 }
 
 exports.login = function(req,res){
@@ -200,7 +200,7 @@ exports.campaignsStatus = function(req,res){
                         if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
                         if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msg.status} Response: ${msg.response}`)
                         res.json(msg)
-	                }
+                        }
                 }
             })
         }else{
@@ -210,7 +210,7 @@ exports.campaignsStatus = function(req,res){
             if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msg.status} Response: ${msg.error}`)
             res.json(msg)
         }
-    } 
+    }
 }
 
 exports.contact = function(req,res){
@@ -236,7 +236,7 @@ exports.contact = function(req,res){
                 if (req.body.attributes) {
                     if(server.tts === 'true'){
                         tts.create(req.body.attributes, req.body.idcampaign)
-	                }
+                        }
                     for (var key in req.body.attributes){
                         var name = key
                         var value = req.body.attributes[key]
@@ -250,10 +250,10 @@ exports.contact = function(req,res){
                                 if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
                                 if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msg.code} Response: ${msglog.error}`)
                                 res.json(msg)
-	                        }
-	                    })
-	                }
-	            }
+                                }
+                            })
+                        }
+                    }
                 var msg = { status: '200', idcall: results.insertId }
                 if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
                 if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msg.status} Response: idcall ${msg.idcall}`)
@@ -289,8 +289,8 @@ exports.callinfo = function(req,res){
                     var sql = "SELECT idc.id, idc.id_campaign, idc.phone, idc.status AS campaign_status, idc.disposition, idc.uniqueid, idc.start_time, idc.end_time, idc.retries, idc.duration, idc.hangup_cause, idc.trunk, sx.* FROM idialerx_calls idc inner join survey_"+results[0].id+"_call sx on sx.id = idc.id WHERE idc.id = ? LIMIT 1"
                 }else{
                     var sql = "SELECT id, id_campaign, phone, status AS campaign_status, disposition, uniqueid, start_time, end_time, retries, duration, hangup_cause, trunk FROM idialerx_calls WHERE id = ? LIMIT 1"
-	            }
-	            connection.query(sql, arg, function (error, results2, fields) {
+                    }
+                    connection.query(sql, arg, function (error, results2, fields) {
                     res.status(200)
                     var msg = { status: '200', response: results2 }
                     if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
