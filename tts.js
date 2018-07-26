@@ -36,7 +36,7 @@ function login(text, id) {
         if(token){
             for (var key in text){
                 var value = text[key]
-                if(LOG === 'true') log.info(`TTS [Function login] Value: ${value}`)
+                if(LOG === 'true') log.info(`TTS [Function login] ID: ${id} Label: ${key} Value: ${value}`)
                 tts(token, value, id)
             }
         }else{
@@ -81,13 +81,13 @@ function tts(token, text, id) {
 
     fetch(TTS_HOST + '/rest/tts', arg)
     .then(function(response) {
-        if(LOG === 'true') log.info(`TTS [Function tts] Method: POST Path: ${TTS_HOST}/rest/tts headers: { Content-Type: 'application/json', Accept: 'application/json', Cookie: ${token} } Body: { txt: ${text}, voice: ${TTS_VOICE}, rate: ${TTS_RATE}, action: "cache" } `)
+        if(LOG === 'true') log.info(`TTS [Function tts] Method: POST Path: ${TTS_HOST}/rest/tts headers: { Content-Type: 'application/json', Accept: 'application/json', Cookie: ${token} } Body: { txt: ${text}, voice: ${TTS_VOICE}, rate: ${TTS_RATE}, action: "cache" }`)
         return response.json();
     })
     .then(function(data) {
-	    var file = data.filepath
-        if(LOG === 'true') log.info(`TTS [Function tts] File: ${file}`)
-	    download(id, file)
+        var file = data.filepath
+        if(LOG === 'true') log.info(`TTS [Function tts] File Download: `, data)
+        download(id, file)
     })
     .catch(function(err) {
         //console.error(err)
@@ -106,11 +106,14 @@ function download(id, file) {
 
     var url = TTS_HOST + "/cache/" + file
     var path = '/var/lib/asterisk/sounds/surveys/'+ id + '/s_tmp/'
-    var cmd = 'mkdir -p ' + path + ' && wget --no-check-certificate '+ url +' -O '+ path + file +' && chown asterisk:asterisk ' + path + file
+    var path2 = '/var/lib/asterisk/sounds/campaigns/'+ id +'/c_tmp/'
+    var cmd = 'mkdir -p ' + path + ' ' + path2 + ' && chown asterisk:asterisk ' + path + ' ' + path2 + ' && wget --no-check-certificate '+ url +' -O '+ path + file +' && chown asterisk:asterisk ' + path + file + ' && yes|cp -fra ' + path + file + ' ' + path2 + file
+    console.log("---->" + cmd + "<----")
     if(LOG === 'true') log.info(`TTS [Function download] CMD: ${cmd}`)
     ssh(cmd, credentials).pipe(process.stdout)
 }
 
 exports.create = function(text, id){
+    if(LOG === 'true') log.info(`TTS [Function create] id: ${id} text: `, text )
     login(text, id)
 }
