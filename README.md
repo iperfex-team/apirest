@@ -60,6 +60,10 @@ docker run --name apirest_app -itd --env-file ./ENV -p 0.0.0.0:8080:8080/tcp  ip
 docker run --name apirest_app -itd --net=host --env-file ./ENV iperfex/apirest:2.0
 ```
 
+# 
+```bash
+yes|cp -fra /usr/src/apirest/apirest.service  /etc/systemd/system/apirest.service
+
 # Enter Console Linux
 ```bash
 bash -c "clear && docker exec -it apirest_app bash"
