@@ -55,6 +55,10 @@ docker build -t iperfex/apirest:2.0 -f Dockerfile .
 ```bash
 docker run --name apirest_app -itd --env-file ./ENV -p 0.0.0.0:8080:8080/tcp  iperfex/apirest:2.0
 ```
+# Run Docker option 2
+```bash
+docker run --name apirest_app -itd --net=host --env-file ./ENV iperfex/apirest:2.0
+```
 
 # Enter Console Linux
 ```bash
