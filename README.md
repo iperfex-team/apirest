@@ -63,6 +63,9 @@ docker run --name apirest_app -itd --net=host --env-file ./ENV iperfex/apirest:2
 # 
 ```bash
 yes|cp -fra /usr/src/apirest/apirest.service  /etc/systemd/system/apirest.service
+systemctl enable apirest
+systemctl start  apirest
+```
 
 # Enter Console Linux
 ```bash
