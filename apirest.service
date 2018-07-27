@@ -4,8 +4,8 @@ After=docker.service
 
 [Service]
 RemainAfterExit=yes
-ExecStart=/usr/bin/docker start apirest
-ExecStop=/usr/bin/docker stop apirest
+ExecStart=/usr/bin/docker start apirest_app
+ExecStop=/usr/bin/docker stop apirest_app
 
 [Install]
 WantedBy=multi-user.target
