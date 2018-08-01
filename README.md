@@ -7,6 +7,9 @@ This code is distributed under the MIT license.
 
 # INTRO
 
+# Quick Install
+https://github.com/iperfex-team/apirest/wiki/Docker-Install
+
 # Features
 - Runs as a Docker Container
 - CentOS 7
