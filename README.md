@@ -7,6 +7,9 @@ This code is distributed under the MIT license.
 
 # INTRO
 
+# API Documentation
+https://github.com/iperfex-team/apirest/wiki
+
 # Quick Install
 https://github.com/iperfex-team/apirest/wiki/Docker-Install
 
