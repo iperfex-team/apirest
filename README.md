@@ -68,7 +68,7 @@ docker run --name apirest_app -itd --net=host --env-file ./ENV iperfex/apirest:2
 
 # Systemctl Auto Start boot
 ```bash
-yes|cp -fra /usr/src/apirest/apirest.service  /etc/systemd/system/apirest.service
+wget https://raw.githubusercontent.com/iperfex-team/apirest/master/apirest.service -O /etc/systemd/system/apirest.service
 systemctl enable apirest
 systemctl start  apirest
 ```
