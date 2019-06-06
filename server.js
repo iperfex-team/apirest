@@ -85,6 +85,12 @@ app.use(function (req, res, next) {
 
 var router = express.Router()
 
+// GET /CallReport/:id/status(all|complete|completequota|abandoned|aborted)
+router.get('/callreport/:id([0-9]{0,10})/:status(all|complete|completequota|abandoned|aborted)', routes.callreport)
+
+// GET /CallReport/:id/status(all|complete|completequota|abandoned|aborted)/:start_time/:end_time
+router.get('/callreport/:id([0-9]{0,10})/:status(all|complete|completequota|abandoned|aborted)/:start_time/:end_time', routes.callreport)
+
 // GET /callinfo/:id
 router.get('/callinfo/:id([0-9]{0,10})', routes.callinfo)
 
