@@ -85,6 +85,12 @@ app.use(function (req, res, next) {
 
 var router = express.Router()
 
+// DELETE
+router.delete('/deletecampaign/:id([0-9]{0,10})', routes.deletecampaign)
+
+// DELETE
+router.delete('/deletequestionnaire/:id([0-9]{0,10})', routes.deletequestionnaire)
+
 // GET /CallReport/:id/status(all|complete|completequota|abandoned|aborted)
 router.get('/callreport/:id([0-9]{0,10})/:status(all|complete|completequota|abandoned|aborted)', routes.callreport)
 
