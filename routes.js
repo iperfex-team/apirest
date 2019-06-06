@@ -301,3 +301,88 @@ exports.callinfo = function(req,res){
         })
     }
 }
+
+exports.callreport = function(req,res){
+    if(!req.session.isAuthed){
+        res.status(200)
+        var msg = { code: '204', success: 'Required login.' }
+        if(LOG === 'true') log.info(`[anonymous] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+        if(LOG === 'true') log.info(`[anonymous] [${showip(req)}] [${req.sessionID}] Status: ${msg.code} Response: ${msg.success}`)
+        res.json(msg)
+    }else{
+	var sql = "SELECT ca.*, sh.creation_user_id, sh.creation_date, sh.questions  FROM idialerx_campaign ca LEFT JOIN survey_header sh ON ca.id_survey = sh.id WHERE ca.id = ?"
+        var arg = [req.params.id]
+
+        connection.query(sql, arg, (error, results, fields) => {
+            if(error){
+                res.status(200)
+                var msglog = { code: '500', error: 'Problems with the query or connectivity to the db.' }
+                var msgUser = { code: '500', error: 'Please contact the administrator' }
+                if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+                if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msglog.code} Response: ${msglog.error}`)
+                res.json(msgUser)
+            }else{
+
+                if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+		//log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Response: filtro  `, req.params.status )
+
+		var status = ''
+		switch (req.params.status) {
+		  case 'all':
+		    status = ''
+		    break
+		  case 'complete':
+		    status = 1
+		    break
+		  case 'completequota':
+		    status = 2
+		    break
+		  case 'abandoned':
+		    status = 0
+		    break
+		  case 'aborted':
+		    status = 4
+		    break
+		  default:
+		    status = ''
+		    break
+		}
+
+		var sqlStart_timeAndEnd_time = ''
+
+		if((req.params.start_time ) && (req.params.end_time )){
+
+			if (Date.parse(req.params.start_time) && Date.parse(req.params.end_time)) {
+				sqlStart_timeAndEnd_time = ' AND DATE(i.start_time) >="'+req.params.start_time+'" AND DATE(i.end_time) <="'+req.params.end_time+'" '
+			}
+		}
+
+                res.status(200)
+                if(results.length > 0) {
+		    var p = ''
+		    var i = 0
+		    do {
+		    	i += 1;
+			p += " s.p"+i+", "
+		    } while (i < results[0].questions);
+
+		    var sql = "SELECT s.id, i.phone, i.start_time, i.end_time, i.duration,i.retries, s.status, s.recording_file, s.agent, s.queue, " + p.slice(0, -2)
+		    sql += " FROM survey_"+results[0].id_survey+"_call s INNER JOIN idialerx_calls i on s.id=i.id WHERE s.status = '"+status+"' "+sqlStart_timeAndEnd_time+" ORDER BY i.start_time"
+		    var arg = ''
+		    if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Response: query  `, sql )
+		    connection.query(sql, arg, (error1, results1, fields1) => {
+			//if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Response: results1  `, results1 )
+			res.status(200)
+			var msg = { status: '200', row: results1.length, response: results1}
+			res.json(msg)
+		    })
+                }else{
+                    var msg = { status: '200', response: 'No campaigns available.' }
+                    if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+                    if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msg.status} Response: ${msg.response}`)
+                    res.json(msg)
+                }
+            }
+        })
+    }
+}
