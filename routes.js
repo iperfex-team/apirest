@@ -459,3 +459,6 @@ exports.deletecampaign = function(req,res){
         })
     }
 }
+
+exports.deletequestionnaire = function(req,res){
+}
