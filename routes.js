@@ -8,6 +8,9 @@ var log = SimpleNodeLogger.createSimpleLogger({ logFilePath:'/var/log/apirest.lo
 var server = require('./server.js')
 var tts = require('./tts.js')
 var connection
+//var obj = []
+//var attribute = []
+
 
 var db = {
     host: server.host,
@@ -376,6 +379,76 @@ exports.callreport = function(req,res){
 			var msg = { status: '200', row: results1.length, response: results1}
 			res.json(msg)
 		    })
+                }else{
+                    var msg = { status: '200', response: 'No campaigns available.' }
+                    if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+                    if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msg.status} Response: ${msg.response}`)
+                    res.json(msg)
+                }
+            }
+        })
+    }
+}
+
+
+
+exports.deletecampaign = function(req,res){
+    if(!req.session.isAuthed){
+        res.status(200)
+        var msg = { code: '204', success: 'Required login.' }
+        if(LOG === 'true') log.info(`[anonymous] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+        if(LOG === 'true') log.info(`[anonymous] [${showip(req)}] [${req.sessionID}] Status: ${msg.code} Response: ${msg.success}`)
+        res.json(msg)
+    }else{
+        res.status(200)
+	    var sql = "SELECT id_survey FROM idialerx_campaign WHERE id = ?"
+        var arg = [req.params.id]
+        connection.query(sql, arg, (error, results, fields) => {
+            if(error){
+                res.status(200)
+                var msglog = { code: '500', error: 'Problems with the query or connectivity to the db.' }
+                var msgUser = { code: '500', error: 'Please contact the administrator' }
+                if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
+                if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Status: ${msglog.code} Response: ${msglog.error}`)
+                res.json(msgUser)
+            }else{
+                res.status(200)
+                if(results.length > 0) {
+                    res.status(200)
+		            var msg = { code: '200', response: 'Processing the elimination of the campaign id '+req.params.id+' and questionnaire id: '+results[0].id_survey+'. This process may take a few minutes, depending on the amount of data you need to delete.' }
+                    res.json(msg)
+                    //START - DELETE CAMPAIGN
+                    var sql1 = "DELETE FROM idialerx_call_progress_log WHERE id_campaign_outgoing = ?"
+                    var arg1 = [req.params.id]
+                    connection.query(sql1, arg1, function (error1, results1, fields1) {
+                        if(LOG === 'true') log.info(`SQL1: ${this.sql} `)
+                        var sql2 = "DELETE hc FROM idialerx_hangup_counter hc inner join idialerx_calls idc on hc.id_call = idc.id WHERE idc.id_campaign = ?"
+                        var arg2 = [req.params.id]
+                        connection.query(sql2, arg2, function (error2, results2, fields2) {
+                            if(LOG === 'true') log.info(`SQL2: ${this.sql} `)
+                            var sql3 = "DELETE hc FROM idialerx_hangup_history hc inner join idialerx_calls idc on hc.id_call = idc.id WHERE idc.id_campaign = ?"
+                            var arg3 = [req.params.id]
+                            connection.query(sql3, arg3, function (error3, results3, fields3) {
+                                if(LOG === 'true') log.info(`SQL3: ${this.sql} `)
+                                var sql4 = "DELETE FROM idialerx_calls WHERE id_campaign = ?"
+                                var arg4 = [req.params.id]
+                                connection.query(sql4, arg4, function (error4, results4, fields4) {
+                                    if(LOG === 'true') log.info(`SQL4: ${this.sql} `)
+                                    var sql5 = "DELETE FROM idialerx_campaign_schedule WHERE id_campaign = ?"
+                                    var arg5 = [req.params.id]
+                                    connection.query(sql5, arg5, function (error5, results5, fields5) {
+                                        if(LOG === 'true') log.info(`SQL5: ${this.sql} `)
+                                        var sql6 = "DELETE FROM idialerx_campaign WHERE id = ?"
+                                        var arg6 = [req.params.id]
+                                        connection.query(sql6, arg6, function (error6, results6, fields6) {
+                                            if(LOG === 'true') log.info(`SQL6: ${this.sql} `)
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                    //STOP - DELETE CAMPAIGN
                 }else{
                     var msg = { status: '200', response: 'No campaigns available.' }
                     if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
