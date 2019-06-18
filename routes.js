@@ -329,6 +329,8 @@ exports.callreport = function(req,res){
                 if(LOG === 'true') log.error(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Method ${req.method.toUpperCase()}  Path: ${req.originalUrl} Body: `, req.body)
 		//log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Response: filtro  `, req.params.status )
 
+		var sqlStatusWhere = ''
+
 		var status = ''
 		switch (req.params.status) {
 		  case 'all':
@@ -336,18 +338,19 @@ exports.callreport = function(req,res){
 		    break
 		  case 'complete':
 		    status = 1
+		    sqlStatusWhere = ' WHERE s.status = "1" '
 		    break
 		  case 'completequota':
 		    status = 2
+		    sqlStatusWhere = ' WHERE s.status = "2" '
 		    break
 		  case 'abandoned':
 		    status = 0
+                    sqlStatusWhere = ' WHERE s.status = "0" '
 		    break
 		  case 'aborted':
 		    status = 4
-		    break
-		  default:
-		    status = ''
+		    sqlStatusWhere = ' WHERE s.status = "4" '
 		    break
 		}
 
@@ -370,7 +373,7 @@ exports.callreport = function(req,res){
 		    } while (i < results[0].questions);
 
 		    var sql = "SELECT s.id, i.phone, i.start_time, i.end_time, i.duration,i.retries, s.status, s.recording_file, s.agent, s.queue, " + p.slice(0, -2)
-		    sql += " FROM survey_"+results[0].id_survey+"_call s INNER JOIN idialerx_calls i on s.id=i.id WHERE s.status = '"+status+"' "+sqlStart_timeAndEnd_time+" ORDER BY i.start_time"
+		    sql += " FROM survey_"+results[0].id_survey+"_call s INNER JOIN idialerx_calls i on s.id=i.id "+sqlStatusWhere+" "+sqlStart_timeAndEnd_time+" ORDER BY i.start_time"
 		    var arg = ''
 		    if(LOG === 'true') log.info(`[${req.session.username}] [${showip(req)}] [${req.sessionID}] Response: query  `, sql )
 		    connection.query(sql, arg, (error1, results1, fields1) => {
@@ -389,8 +392,6 @@ exports.callreport = function(req,res){
         })
     }
 }
-
-
 
 exports.deletecampaign = function(req,res){
     if(!req.session.isAuthed){
