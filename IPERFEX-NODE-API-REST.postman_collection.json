@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "d7f3988a-ba92-4d86-bd16-cc7d7ed12c76",
+		"name": "IPERFEX-NODE-API-REST",
+		"description": "New collection (imported from DHC)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "70265"
+	},
+	"item": [
+		{
+			"name": "1 - POST (login)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"CATAMARCA\",\n    \"pass\":\"catamarca\"\n}"
+				},
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/login",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - GET (hello)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/hello",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - GET (campaigns)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/campaigns",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - GET (campaigns 1)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/campaigns/1",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"campaigns",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 - POST (contact)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idcampaign\":\"1\",\n    \"phone\":\"5491161002324\"\n} "
+				},
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/contact",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6 - POST (contact) atribute",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idcampaign\":\"1\",\n    \"phone\":\"5491161002324\",\n    \"attributes\":{\n    \t\"name\":\"Federico\",\n        \"lastname\":\"Pereira\",\n        \"country\":\"Argentina\",\n        \"city\":\"La Plata\"\n\t}\n} "
+				},
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/contact",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7 - GET (campaigns status)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/campaigns/1/status",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"campaigns",
+						"1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8 - PUT (campaigns enable)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/campaigns/1/enable",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"campaigns",
+						"1",
+						"enable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9 - PUT (campaigns disable)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/campaigns/1/disable",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"campaigns",
+						"1",
+						"disable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10 - GET (callinfo)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080//rest/callinfo/12131",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"",
+						"rest",
+						"callinfo",
+						"12131"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11 - GET (callreport) all zip",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/callreport/all/2025-03-01/2025-03-31",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"callreport",
+						"all",
+						"2025-03-01",
+						"2025-03-31"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12 - GET (logout)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://190.210.107.67:8080/rest/logout",
+					"protocol": "http",
+					"host": [
+						"190",
+						"210",
+						"107",
+						"67"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

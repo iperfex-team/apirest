@@ -97,6 +97,9 @@ router.get('/callreport/:id([0-9]{0,10})/:status(all|complete|completequota|aban
 // GET /CallReport/:id/status(all|complete|completequota|abandoned|aborted)/:start_time/:end_time
 router.get('/callreport/:id([0-9]{0,10})/:status(all|complete|completequota|abandoned|aborted)/:start_time/:end_time', routes.callreport)
 
+// GET /CallReport/all/:start_time/:end_time
+router.get('/callreport/all/:start_time/:end_time', routes.callreportall)
+
 // GET /callinfo/:id
 router.get('/callinfo/:id([0-9]{0,10})', routes.callinfo)
 
