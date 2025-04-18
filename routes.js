@@ -44,12 +44,15 @@ function showip(req) {
 exports.login = async function (req, res) {
   const username = req.body.user;
   const password = req.body.pass;
+  // console.log('username', username);
+  // console.log('password', password);
   const sql = `
-    SELECT id, usuario AS user
-    FROM api_usuario
-    WHERE enabled = '1' AND usuario = ? AND md5_password = MD5(?)
+    SELECT id, login AS user
+    FROM iwebserver.user
+    WHERE enabled = '1' AND login = ? AND password = MD5(?)
     LIMIT 1
   `;
+  //console.log('sql', sql);
   try {
     const rows = await queryPromise(sql, [username, password]);
     if (rows.length > 0 && rows[0].id) {
@@ -60,7 +63,7 @@ exports.login = async function (req, res) {
 
       // actualiza último login
       await queryPromise(
-        'UPDATE api_usuario SET ultimo_login = NOW() WHERE id = ?',
+        'UPDATE iwebserver.user SET lastlogin_time = NOW() WHERE id = ?',
         [rows[0].id]
       );
 
@@ -107,6 +110,9 @@ exports.campaigns = async function (req, res) {
   try {
     let sql, arg;
     if (!req.params.id) {
+      // console.log('req.params.id', req.params.id);
+      // console.log('req.session.user_id', req.session.user_id);
+      // console.log('req.session.username', req.session.username);
       sql = `
         SELECT c.id, c.name, c.max_canales AS channels, c.estatus AS status,
                c.id_survey, c.callerid, c.add_prefix, c.remove_prefix,
@@ -119,6 +125,7 @@ exports.campaigns = async function (req, res) {
         INNER JOIN isurveyx.survey_header q ON c.id_survey = q.id
         WHERE q.creation_user_id = ?
       `;
+      //console.log('sql0', sql);
       arg = [req.session.user_id];
     } else {
       sql = `
@@ -134,6 +141,7 @@ exports.campaigns = async function (req, res) {
         WHERE q.creation_user_id = ?
           AND c.id = ?
       `;
+      //console.log('sql1', sql);
       arg = [req.session.user_id, req.params.id];
     }
     const results = await queryPromise(sql, arg);

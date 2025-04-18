@@ -19,10 +19,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\":\"CATAMARCA\",\n    \"pass\":\"catamarca\"\n}"
+					"raw": "{\n    \"user\":\"pepe\",\n    \"pass\":\"pepa\"\n}"
 				},
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/login",
+					"raw": "http://192.168.0.111:8080/rest/login",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -45,7 +45,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/hello",
+					"raw": "http://192.168.0.111:8080/rest/hello",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -68,7 +68,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/campaigns",
+					"raw": "http://192.168.0.111:8080/rest/campaigns",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -91,7 +91,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/campaigns/1",
+					"raw": "http://192.168.0.111:8080/rest/campaigns/1",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -124,7 +124,7 @@
 					"raw": "{\n    \"idcampaign\":\"1\",\n    \"phone\":\"5491161002324\"\n} "
 				},
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/contact",
+					"raw": "http://192.168.0.111:8080/rest/contact",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -156,7 +156,7 @@
 					"raw": "{\n    \"idcampaign\":\"1\",\n    \"phone\":\"5491161002324\",\n    \"attributes\":{\n    \t\"name\":\"Federico\",\n        \"lastname\":\"Pereira\",\n        \"country\":\"Argentina\",\n        \"city\":\"La Plata\"\n\t}\n} "
 				},
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/contact",
+					"raw": "http://192.168.0.111:8080/rest/contact",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -179,7 +179,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/campaigns/1/status",
+					"raw": "http://192.168.0.111:8080/rest/campaigns/1/status",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -213,7 +213,7 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/campaigns/1/enable",
+					"raw": "http://192.168.0.111:8080/rest/campaigns/1/enable",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -247,7 +247,7 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/campaigns/1/disable",
+					"raw": "http://192.168.0.111:8080/rest/campaigns/1/disable",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -272,7 +272,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080//rest/callinfo/12131",
+					"raw": "http://192.168.0.111:8080//rest/callinfo/12131",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -297,7 +297,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/callreport/all/2025-03-01/2025-03-31",
+					"raw": "http://192.168.0.111:8080/rest/callreport/all/2025-03-01/2025-03-31",
 					"protocol": "http",
 					"host": [
 						"190",
@@ -323,7 +323,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://190.210.107.67:8080/rest/logout",
+					"raw": "http://192.168.0.111:8080/rest/logout",
 					"protocol": "http",
 					"host": [
 						"190",
