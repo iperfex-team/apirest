@@ -163,7 +163,7 @@ function showip(req){
 }
 
 function validateLogin(req, res, next) {
-    req.checkBody('user', 'Invalid username a minimum of 4 to 20 characters is required.').len(4,20)
+    req.checkBody('user', 'Invalid username a minimum of 3 to 20 characters is required.').len(3,20)
     req.checkBody('user', 'Blank unsername').notEmpty()
     req.checkBody('user', 'requires alphanumeric username with Spanish characters').isAlphanumeric('es-ES')
 
